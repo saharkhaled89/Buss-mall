@@ -48,7 +48,7 @@ console.log(times_clicked);
 
 
 function Pictur (name){
-  this.name = name;
+  this.name = name.split('.')[0];
   this.urlImage = `img/${this.name}.jpg`;
   picturs.push(this);//this its refer to the object that im created
 }
