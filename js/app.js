@@ -29,7 +29,7 @@ var picturs = [];//an array to store all picture objects
 var totalClicks = 1;
 var times_showed = [];
 var times_clicked = [];
-var lastSeen=[];
+var lastSeen = [];
 for (var i = 0; i < pictursImages.length; i++) {
   times_showed.push(0);
   times_clicked.push(0);
@@ -51,9 +51,12 @@ console.log(times_clicked);
 function Pictur(name) {
   this.name = name.split('.')[0];
   this.urlImage = `img/${this.name}.jpg`;
-  this.likes=0;
+  this.times_showed = 0;
+  this.times_clicked = 0;
   picturs.push(this);//this its refer to the object that im created
 }
+
+picturs = [];
 
 var leftPicturImageAT;
 var centerPicturImageAT;
@@ -77,8 +80,8 @@ function pickRandomImages() {
 
   //console.log(leftPicturImageAT);
 
-  if (lastSeen.includes(leftPicturImageAT) || lastSeen.includes(centerPicturImageAT)  ||  lastSeen.includes(rightPicturImageAT) || leftPicturImageAT === rightPicturImageAT || leftPicturImageAT === centerPicturImageAT || centerPicturImageAT === rightPicturImageAT || centerPicturImageAT === leftPicturImageAT) {
-    while (lastSeen.includes(leftPicturImageAT) || lastSeen.includes(centerPicturImageAT)  ||  lastSeen.includes(rightPicturImageAT)  || leftPicturImageAT === rightPicturImageAT || leftPicturImageAT === centerPicturImageAT || centerPicturImageAT === rightPicturImageAT || centerPicturImageAT === leftPicturImageAT) {
+  if (lastSeen.includes(leftPicturImageAT) || lastSeen.includes(centerPicturImageAT) || lastSeen.includes(rightPicturImageAT) || leftPicturImageAT === rightPicturImageAT || leftPicturImageAT === centerPicturImageAT || centerPicturImageAT === rightPicturImageAT || centerPicturImageAT === leftPicturImageAT) {
+    while (lastSeen.includes(leftPicturImageAT) || lastSeen.includes(centerPicturImageAT) || lastSeen.includes(rightPicturImageAT) || leftPicturImageAT === rightPicturImageAT || leftPicturImageAT === centerPicturImageAT || centerPicturImageAT === rightPicturImageAT || centerPicturImageAT === leftPicturImageAT) {
 
       pickRandomImages();
 
@@ -99,6 +102,7 @@ function pickRandomImages() {
 
 for (var i = 0; i < pictursImages.length; i++) {
   new Pictur(pictursImages[i]);//we pass the name of the picturs from the array
+  
 }
 pickRandomImages();
 
@@ -123,16 +127,19 @@ function clickImage(e) {
       var right_title = rightPicturImage.getAttribute('alt');
       times_clicked[pictursImages.indexOf(right_title)] += 1;
     }
-    lastSeen=[];
+    lastSeen = [];
     lastSeen.push(leftPicturImage.getAttribute('alt'));
     lastSeen.push(centerPicturImage.getAttribute('alt'));
     lastSeen.push(rightPicturImage.getAttribute('alt'));
-    
+
 
     pickRandomImages();
     totalClicks++;
 
+
   }
+
+
   if (totalClicks === 26) {
     //remove event listener
     leftPicturImage.remove();
@@ -146,13 +153,10 @@ function clickImage(e) {
       x.appendChild(t);
       report.appendChild(x);
 
-
-
-
-
-
     }
+
     renderChartResult();
+    setItem();
 
   }
 }
@@ -180,11 +184,11 @@ function randomNumber(min, max) {
 
 
 
-function renderChartResult(){
+function renderChartResult() {
 
   var pictursNames = [];
 
-  for(var i = 0 ; i < picturs.length; i++){
+  for (var i = 0; i < picturs.length; i++) {
     var picturName = picturs[i].name;
     pictursNames.push(picturName);
 
@@ -218,7 +222,7 @@ function renderChartResult(){
         backgroundColor: 'rgb(0, 191, 255)',
         borderColor: 'rgba(295, 99, 132, 1)',
         borderWidth: 1,
-      } ]
+      }]
 
 
     },
@@ -235,6 +239,35 @@ function renderChartResult(){
 }
 
 
+
+
+function setItem() {
+  var productstring = JSON.stringify(picturs);
+  localStorage.setItem('picOrders', productstring);
+}
+//get all drinks
+function getItem() {
+  var productstring= localStorage.getItem('picOrders');
+  if(productstring){
+    picturs = JSON.parse(productstring);
+    render();
+  }
+}
+function render (){
+  if (totalClicks === 26) {
+  //remove event listener
+    leftPicturImage.remove();
+    rightPicturImage.remove();
+    centerPicturImage.remove();
+    console.log('finished');
+    var report = document.querySelector('#report');
+    for (var i = 0; i < pictursImages.length; i++) {
+      var x = document.createElement('LI');
+      var t = document.createTextNode(pictursImages[i] + ' was shown ' + times_showed[i] + ' times and had votes ' + times_clicked[i] + ' times.');
+      x.appendChild(t);
+      report.appendChild(x);
+    }}}
+getItem();
 
 
 
