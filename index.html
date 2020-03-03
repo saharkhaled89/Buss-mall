@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,15 @@
   <title>Image Event Demo</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/reset.css">
-  
+
 
 </head>
+
 <body>
-  <header> 
-    <nav> 
+  <header>
+    <nav>
       <ul>
-                
+
         <li><a href="#">Home</a></li>
         <li><a href="#">picturs</a></li>
         <li><a href="#">contact</a></li>
@@ -29,13 +31,13 @@
       </ul>
     </section>
     <section id="all_picturs">
-      <h1>I've  a few pictures for you!</h1>
+      <h1>I've a few pictures for you!</h1>
       <p>each time choose one from the three images , you have 25 rounds</p>
 
-      <div id="left_pictur"> 
+      <div id="left_pictur">
         <img id="left_pictur_img" src="" alt="">
       </div>
-      <div id="center_pictur"> 
+      <div id="center_pictur">
         <img id="center_pictur_img" src="" alt="">
       </div>
       <div id="right_pictur">
@@ -44,14 +46,19 @@
       <ul id="report">
 
       </ul>
+      <section>
+        <canvas id="myChart" width="400" height="400"></canvas>
+      </section>
     </section>
-    
+
   </main>
   <footer>
     <div>
-      <p>@copy right  style</p>
+      <p>@copy right style</p>
     </div>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="js/app.js"></script>
 </body>
+
 </html>
