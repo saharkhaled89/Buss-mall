@@ -27,16 +27,16 @@ var rightPicturImage = document.querySelector('#right_pictur_img');
 // var groupImageSection = document.getElementById('all_picture');
 var picturs = [];//an array to store all picture objects
 var totalClicks = 1;
-var times_showed = [];
-var times_clicked = [];
+//var times_showed = [];
+//var times_clicked = [];
 var lastSeen = [];
-for (var i = 0; i < pictursImages.length; i++) {
-  times_showed.push(0);
-  times_clicked.push(0);
+// for (var i = 0; i < pictursImages.length; i++) {
+//   //times_showed.push(0);
+//   times_clicked.push(0);
 
-}
-console.log(times_showed);
-console.log(times_clicked);
+// }
+//console.log(times_showed);
+//console.log(times_clicked);
 
 // leftPicturImage.src = `img/${pictursImages[0]}.jpg`;
 // leftPicturImage.alt = pictursImages[0];
@@ -51,7 +51,7 @@ console.log(times_clicked);
 function Pictur(name) {
   this.name = name.split('.')[0];
   this.urlImage = `img/${this.name}.jpg`;
-  this.times_showed = 0;
+  this.times_showed =0;
   this.times_clicked = 0;
   picturs.push(this);//this its refer to the object that im created
 }
@@ -91,10 +91,14 @@ function pickRandomImages() {
     var left_title = leftPicturImage.getAttribute('alt');
     var center_title = centerPicturImage.getAttribute('alt');
     var right_title = rightPicturImage.getAttribute('alt');
-    times_showed[pictursImages.indexOf(left_title)] += 1;
-    times_showed[pictursImages.indexOf(center_title)] += 1;
-    times_showed[pictursImages.indexOf(right_title)] += 1;
+    //times_showed[pictursImages.indexOf(left_title)] += 1;
+    leftImageRandom.times_showed += 1;
+    //times_showed[pictursImages.indexOf(center_title)] += 1;
+    centerImageRandom.times_showed += 1;
 
+    //times_showed[pictursImages.indexOf(right_title)] += 1;
+
+    rightImageRandom.times_showed += 1;
 
   }
   lastSeen = [];
@@ -102,7 +106,7 @@ function pickRandomImages() {
 
 for (var i = 0; i < pictursImages.length; i++) {
   new Pictur(pictursImages[i]);//we pass the name of the picturs from the array
-  
+
 }
 pickRandomImages();
 
@@ -114,51 +118,60 @@ console.log(picturs);
 // Variables to store the picturs already on the page
 // the allImages array is a property of the Picture constructor
 function clickImage(e) {
-  if (e.target.id === 'left_pictur_img' || e.target.id === 'center_pictur_img' || e.target.id === 'right_pictur_img') {
-    if (e.target.id === 'left_pictur_img') {
-      var left_title = leftPicturImage.getAttribute('alt');
-      times_clicked[pictursImages.indexOf(left_title)] += 1;
-    }
-    if (e.target.id === 'center_pictur_img') {
-      var center_title = centerPicturImage.getAttribute('alt');
-      times_clicked[pictursImages.indexOf(center_title)] += 1;
-    }
-    if (e.target.id === 'right_pictur_img') {
-      var right_title = rightPicturImage.getAttribute('alt');
-      times_clicked[pictursImages.indexOf(right_title)] += 1;
-    }
-    lastSeen = [];
-    lastSeen.push(leftPicturImage.getAttribute('alt'));
-    lastSeen.push(centerPicturImage.getAttribute('alt'));
-    lastSeen.push(rightPicturImage.getAttribute('alt'));
+  if (e.target.id === 'left_pictur_img') {
+    var left_title = leftPicturImage.getAttribute('alt');
+    picturs[pictursImages.indexOf(left_title)].times_clicked += 1;
+  }
+  if (e.target.id === 'center_pictur_img') {
+    var center_title = centerPicturImage.getAttribute('alt');
+    picturs[pictursImages.indexOf(center_title)].times_clicked += 1;
+  }
+  if (e.target.id === 'right_pictur_img') {
+    var right_title = rightPicturImage.getAttribute('alt');
+    picturs[pictursImages.indexOf(right_title)].times_clicked += 1;
+  }
+  lastSeen = [];
+  lastSeen.push(leftPicturImage.getAttribute('alt'));
+  lastSeen.push(centerPicturImage.getAttribute('alt'));
+  lastSeen.push(rightPicturImage.getAttribute('alt'));
+  var report = document.querySelector('#report');
+  report.textContent = '';
+  for (var i = 0; i < picturs.length; i++) {
+    var x = document.createElement('LI');
+    var t = document.createTextNode(picturs[i].name + ' was shown ' + picturs[i].times_showed + ' times and had votes ' + picturs[i].times_clicked + ' times.');
+    x.appendChild(t);
+    report.appendChild(x);
+
+
+  }
+
+  renderChartResult();
+
+
+  if (totalClicks === 25) {
+    //remove event listener
+    leftPicturImage.remove();
+    rightPicturImage.remove();
+    centerPicturImage.remove();
+
+    console.log('finished');
+  }
+
+
+  else{
+    //if (e.target.id === 'left_pictur_img' || e.target.id === 'center_pictur_img' || e.target.id === 'right_pictur_img') {
+
 
 
     pickRandomImages();
     totalClicks++;
 
 
-  }
-
-
-  if (totalClicks === 26) {
-    //remove event listener
-    leftPicturImage.remove();
-    rightPicturImage.remove();
-    centerPicturImage.remove();
-    console.log('finished');
-    var report = document.querySelector('#report');
-    for (var i = 0; i < pictursImages.length; i++) {
-      var x = document.createElement('LI');
-      var t = document.createTextNode(pictursImages[i] + ' was shown ' + times_showed[i] + ' times and had votes ' + times_clicked[i] + ' times.');
-      x.appendChild(t);
-      report.appendChild(x);
-
-    }
-
-    renderChartResult();
-    setItem();
+    //}
 
   }
+  setItem();
+
 }
 // clickImage();
 
@@ -187,16 +200,21 @@ function randomNumber(min, max) {
 function renderChartResult() {
 
   var pictursNames = [];
+  var times_showed = [];
+  var times_clicked = [];
 
   for (var i = 0; i < picturs.length; i++) {
     var picturName = picturs[i].name;
     pictursNames.push(picturName);
+    times_showed.push(picturs[i].times_showed);
+    times_clicked.push(picturs[i].times_clicked);
 
 
   }
 
 
   var ctx = document.getElementById('myChart').getContext('2d');
+  ctx.textContent = '';
   var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
@@ -244,29 +262,45 @@ function renderChartResult() {
 function setItem() {
   var productstring = JSON.stringify(picturs);
   localStorage.setItem('picOrders', productstring);
+
+
+  var clicksString = JSON.stringify(totalClicks);
+  localStorage.setItem('picClicks', clicksString);
 }
 //get all drinks
 function getItem() {
   var productstring= localStorage.getItem('picOrders');
+  var clicksString= localStorage.getItem('picClicks');
   if(productstring){
     picturs = JSON.parse(productstring);
-    render();
   }
+  if(clicksString){
+    totalClicks = JSON.parse(clicksString);
+  }
+  renderAfterClick();
+
 }
-function render (){
-  if (totalClicks === 26) {
-  //remove event listener
+function renderAfterClick(){
+  if(totalClicks === 25){
     leftPicturImage.remove();
     rightPicturImage.remove();
     centerPicturImage.remove();
+
     console.log('finished');
     var report = document.querySelector('#report');
-    for (var i = 0; i < pictursImages.length; i++) {
+    for (var i = 0; i < picturs.length; i++) {
       var x = document.createElement('LI');
-      var t = document.createTextNode(pictursImages[i] + ' was shown ' + times_showed[i] + ' times and had votes ' + times_clicked[i] + ' times.');
+      var t = document.createTextNode(picturs[i].name + ' was shown ' + picturs[i].times_showed + ' times and had votes ' + picturs[i].times_clicked + ' times.');
       x.appendChild(t);
       report.appendChild(x);
-    }}}
+
+
+    }
+
+    renderChartResult();
+  }
+}
+
 getItem();
 
 
