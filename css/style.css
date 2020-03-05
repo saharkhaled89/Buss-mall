@@ -1,9 +1,9 @@
-body {
+/* body {
   background: radial-gradient(#dbffe1, #fff) fixed;
   color: #0e2805;
-}
+} */
 
-h1{
+h1{color: white;
   font-size: 24px;
   font-weight: bold;
   margin: 10px 0;
@@ -13,7 +13,7 @@ h2{
   font-weight: bold;
 }
 header {
-  background: #c3f3cb;
+  background-color: rgb(4, 4, 43);
   width: 100%;
   padding: 17px 0;
   text-align: center;
@@ -34,7 +34,7 @@ nav ul {
 }
 nav ul li a{
   text-decoration: none;
-  color: #0e2805;
+  color: #c9cfc7;
   font-weight: bold;
   letter-spacing: 1.4px;
   font-size: 18px;
@@ -66,16 +66,112 @@ main ul, main li {
   margin: 10px 0;
 }
 
-body footer {
+/* body footer {
   background: #18ad3155;
   clear: both;
   text-align: center;
   padding: 24px 0;
   color: #0e2805;
-}
+} */
 section div {
   padding: 7px;
   box-sizing: border-box;
   float: left;
 }
+/* //////////// */
+
+.text-with-animation {
+  position: absolute;
+  font-size: 6vw;
+  text-align: center;
+  line-height: 100vh;
+  vertical-align: middle;
+  top: 0;
+  color: #f19578;
+  letter-spacing: 4px;
+  user-select: none;
+  overflow: hidden;
+  display: block;
+  z-index: 900;
+  animation: main-text-animation 1.7s ease-in-out forwards;
+
+
+}
+
+.container {
+  height: 100vh;
+  line-height: 100vh;
+  vertical-align: middle;
+}
+
+.subtext-with-animation {
+  position: absolute;
+  font-size: 5vw;
+  text-align: center;
+  line-height: 100vh;
+  vertical-align: middle;
+  top: 0;
+  font-family: 'Gochi Hand', cursive;
+  color:rgb(5, 5, 37);
+  letter-spacing: 4px;
+  user-select: none;
+  overflow: hidden;
+  display: block;
+  z-index: 900;
+}
+.formZ{
+  z-index: 5000;
+}
+.subtext-with-animation span:first-of-type {
+  opacity: 0;
+  animation: word-animation 0.5s ease-out 1.5s forwards;
+  z-index: 900;
+}
+
+.subtext-with-animation span:nth-of-type(2) {
+  position: relative;
+  opacity: 0;
+  animation: word-animation 0.5s ease-out 1.7s forwards;
+  z-index: 900;
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  background: linear-gradient(to bottom right, #e3915d 20%, #be3956);
+}
+
+body, html {
+  width: 100vw;
+  max-width: 100vw;
+}
+
+@keyframes main-text-animation {
+  0% {
+    letter-spacing: 25vw;
+    word-spacing: 100vw;
+    opacity: 0;
+  }
+  100% {
+    letter-spacing: 4px;
+    word-spacing: 1vw;
+    opacity: 1;
+  }
+}
+
+@keyframes word-animation {
+  0% {
+    top: 10vw;
+    opacity: 0;
+  }
+  100% {
+    top: 3.5vw;
+    opacity: 1;
+  }
+}
+
+/* /////////////////////////////////////// */
+
+
+
 

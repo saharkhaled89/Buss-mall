@@ -16,21 +16,31 @@
   <header>
     <nav>
       <ul>
-
-        <li><a href="#">Home</a></li>
-        <li><a href="#">picturs</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="cart.html">Cart  </a><span id="itemCount" style="color:white;"></span></li>
         <li><a href="#">contact</a></li>
       </ul>
     </nav>
   </header>
   <main>
-    <section>
+   
+    <div class="container">
+      <span class="text-with-animation">welcome</span>
+      <span class="subtext-with-animation">
+        <span></span> <span>sahar khaled</span>
+      </span>
+    </div>
+
+    <!-- <section>
       <ul id="pictur-clicks">
         <p>try to vote about the photos that you liked from our images choose one from two each time :</p>
         
 
       </ul>
+    
     </section>
+
+ 
     <section id="all_picturs">
       <h1>I've a few pictures for you!</h1>
       <p>each time choose one from the three images , you have 25 rounds</p>
@@ -54,8 +64,46 @@
       </ul>
       
 
+    </section> -->
+
+
+    <section class="deck col-1">
+      <div class="card">
+        <header>
+          <h1>Shop Our Catalog</h1>
+        </header>
+        <div class="copy">
+          <ol>
+            <li>Select an item from our catalog and indicate how many you would like to purchase.</li>
+            <li>Once you've made your selection, click the "Add to Cart" button</li>
+            <li>When you are ready to purchase, click the "Cart" link above to view your cart and check out</li>
+          </ol>
+        </div>
+      </div>
     </section>
 
+    <section class="deck col-2 formZ">
+      <div class="card">
+        <div class="copy">
+          <form id="catalog">
+            <fieldset>
+              <legend>Catalog</legend>
+              <label>
+                <span>Item</span>
+                <select id="items"></select>
+              </label>
+              <label>
+                <span>Quantity</span>
+                <input id="quantity" type="number" />
+              </label>
+              <input type="submit" value="Add To Cart" />
+            </fieldset>
+          </form>
+        </div>
+      </div>
+      <div class="card" id="cartContents"></div>
+    </section>
+    
   </main>
   <footer>
     <div>
@@ -64,6 +112,7 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
   <script src="js/app.js"></script>
+  <script src='js/catalog.js'></script>
 </body>
 
 </html>
