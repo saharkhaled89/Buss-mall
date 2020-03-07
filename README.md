@@ -1,5 +1,7 @@
 # Buss-mall
-*How did this go, overall?*
+
+
+**How did this go, overall?**
 
 **there is an array of some pictures we need to put 3 picture in HTML and changed randomly we use validation with while to not repeated picture and see 3 different picture the user should choose one of them by click there is25 trying for the user to choose then print them as a list contain each element that click on and how many time shown and clicked by the user**
 
